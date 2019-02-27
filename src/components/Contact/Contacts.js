@@ -4,38 +4,22 @@ import { Consumer } from "../../context";
 import Contact from "./Contact";
 
 class Contacts extends Component {
-  handleGetActive = (email, active) => {
-    this.setState(({ contacts }) => {
-      const shallCopy = [...contacts];
-      const index = shallCopy.findIndex(item => item.email === email);
-      shallCopy[index] = { ...shallCopy[index], active };
-
-      return { contacts: shallCopy };
-    });
-  };
-
-  handleDeleteContact = id => {
-    this.setState(({ contacts }) => {
-      const shallCopy = [...contacts];
-      const filtered = shallCopy.filter(item => item.id !== id);
-
-      return { contacts: filtered };
-    });
+  handleDeleteContact = (id, dispatch) => {
+    dispatch({ type: "DELETE_CONTACT", payload: id });
   };
 
   render() {
     return (
       <Consumer>
         {value => {
-          const { contacts } = value;
+          const { contacts, dispatch } = value;
           const items = contacts.map(contact => {
             const { id, ...data } = contact;
             return (
               <Contact
                 key={id}
                 contact={data}
-                onActive={this.handleGetActive}
-                onDelete={() => this.handleDeleteContact(id)}
+                onDelete={() => this.handleDeleteContact(id, dispatch)}
               />
             );
           });

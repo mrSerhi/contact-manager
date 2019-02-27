@@ -16,16 +16,16 @@ class Contact extends Component {
     active: false
   };
 
-  handleDisplayOption = email => {
+  handleDisplayDesc = () => {
     this.setState(({ active }) => {
       return { active: !active };
     });
-    this.props.onActive(email, !this.state.active);
   };
 
   render() {
-    const { name, email, phone, active } = this.props.contact;
+    const { name, email, phone } = this.props.contact;
     const { onDelete } = this.props;
+    const { active } = this.state;
     const display = active ? (
       <ul className="list-group">
         <li className="list-group-item">{email}</li>
@@ -39,7 +39,7 @@ class Contact extends Component {
           <div className="card-title-left">
             {name}
             <button
-              onClick={() => this.handleDisplayOption(email)}
+              onClick={this.handleDisplayDesc}
               className="btn btn-link text-danger p-1 ml-1"
             >
               <FontAwesomeIcon icon={active ? faAngleUp : faAngleDown} />
