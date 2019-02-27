@@ -37,12 +37,26 @@ class Contacts extends Component {
     });
   };
 
+  handleDeleteContact = id => {
+    this.setState(({ contacts }) => {
+      const shallCopy = [...contacts];
+      const filtered = shallCopy.filter(item => item.id !== id);
+
+      return { contacts: filtered };
+    });
+  };
+
   render() {
     const { contacts } = this.state;
     const items = contacts.map(contact => {
       const { id, ...data } = contact;
       return (
-        <Contact key={id} contact={data} onActive={this.handleGetActive} />
+        <Contact
+          key={id}
+          contact={data}
+          onActive={this.handleGetActive}
+          onDelete={() => this.handleDeleteContact(id)}
+        />
       );
     });
     return <div className="container">{items}</div>;

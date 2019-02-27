@@ -4,8 +4,12 @@ import PropTypes from "prop-types";
 // Font-Awesome v5
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
-library.add(faAngleDown, faAngleUp);
+import {
+  faAngleDown,
+  faAngleUp,
+  faTimes
+} from "@fortawesome/free-solid-svg-icons";
+library.add(faAngleDown, faAngleUp, faTimes);
 
 class Contact extends Component {
   state = {
@@ -21,6 +25,7 @@ class Contact extends Component {
 
   render() {
     const { name, email, phone, active } = this.props.contact;
+    const { onDelete } = this.props;
     const display = active ? (
       <ul className="list-group">
         <li className="list-group-item">{email}</li>
@@ -30,15 +35,21 @@ class Contact extends Component {
 
     return (
       <div className="card card-body mb-3 text-left">
-        <h5 className="card-title">
-          {name}
-          <button
-            onClick={() => this.handleDisplayOption(email)}
-            className="btn btn-link text-danger p-1 ml-1"
-          >
-            <FontAwesomeIcon icon={active ? faAngleUp : faAngleDown} />
+        <h5 className="card-title d-flex justify-content-between align-items-center">
+          <div className="card-title-left">
+            {name}
+            <button
+              onClick={() => this.handleDisplayOption(email)}
+              className="btn btn-link text-danger p-1 ml-1"
+            >
+              <FontAwesomeIcon icon={active ? faAngleUp : faAngleDown} />
+            </button>
+          </div>
+          <button onClick={onDelete} className="btn btn-link text-muted p-1">
+            <FontAwesomeIcon icon={faTimes} />
           </button>
         </h5>
+
         {display}
       </div>
     );
@@ -48,5 +59,6 @@ class Contact extends Component {
 export default Contact;
 
 Contact.propTypes = {
-  contact: PropTypes.object.isRequired
+  contact: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
