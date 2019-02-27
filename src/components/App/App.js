@@ -3,8 +3,7 @@ import "./App.css";
 
 //Components
 import NavBar from "../Header/NavBar";
-import Contact from "../Contact/Contact";
-
+import Contacts from "../Contact/Contacts";
 // Font-Awesome v5
 // import { library } from '@fortawesome/fontawesome-svg-core'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -16,10 +15,7 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar />
-        <div className="container">
-          <Contact />
-          <Contact />
-        </div>
+        <Contacts />
       </div>
     );
   }

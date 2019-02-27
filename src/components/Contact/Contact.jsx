@@ -1,17 +1,21 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 
-class Contact extends Component {
-  render() {
-    return (
-      <div className="card card-body mb-3 text-left">
-        <h3 className="card-title">Serhio</h3>
-        <ul className="list-group">
-          <li className="list-group-item">Email: kek@gmail.com</li>
-          <li className="list-group-item">Phone: 555-43-111</li>
-        </ul>
-      </div>
-    );
-  }
-}
+const Contact = ({ contact }) => {
+  const { name, email, phone } = contact;
+  return (
+    <div className="card card-body mb-3 text-left">
+      <h3 className="card-title">{name}</h3>
+      <ul className="list-group">
+        <li className="list-group-item">{email}</li>
+        <li className="list-group-item">{phone}</li>
+      </ul>
+    </div>
+  );
+};
+
+Contact.propTypes = {
+  contact: PropTypes.object.isRequired
+};
 
 export default Contact;
