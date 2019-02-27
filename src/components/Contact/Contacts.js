@@ -26,11 +26,24 @@ class Contacts extends Component {
       }
     ]
   };
+
+  handleGetActive = (email, active) => {
+    this.setState(({ contacts }) => {
+      const shallCopy = [...contacts];
+      const index = shallCopy.findIndex(item => item.email === email);
+      shallCopy[index] = { ...shallCopy[index], active };
+
+      return { contacts: shallCopy };
+    });
+  };
+
   render() {
     const { contacts } = this.state;
     const items = contacts.map(contact => {
       const { id, ...data } = contact;
-      return <Contact key={id} contact={data} />;
+      return (
+        <Contact key={id} contact={data} onActive={this.handleGetActive} />
+      );
     });
     return <div className="container">{items}</div>;
   }
