@@ -9,24 +9,53 @@ class AddContactForm extends Component {
   state = {
     name: "",
     email: "",
-    phone: ""
+    phone: "",
+    errors: {}
   };
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  validationSubmit = state => {
+    const { name, email, phone } = state;
+
+    if (name === "") {
+      this.setState({ errors: { name: "name is required" } });
+      return;
+    }
+
+    if (email === "") {
+      this.setState({ errors: { email: "email is required" } });
+      return;
+    }
+
+    if (phone === "") {
+      this.setState({ errors: { phone: "phone is required" } });
+      return;
+    } else if (phone.length < 5) {
+      this.setState({ errors: { phone: "a phone number should be > 5" } });
+      return;
+    }
+
+    return { name, email, phone };
+  };
+
   handleSubmit = (e, dispatch) => {
     e.preventDefault();
+    const valid = this.validationSubmit(this.state);
 
-    const contact = { id: uuid(), ...this.state };
-    dispatch({ type: "ADD_CONTACT", payload: contact });
+    if (valid) {
+      const contact = { id: uuid(), ...valid };
+      dispatch({ type: "ADD_CONTACT", payload: contact });
 
-    this.setState({ name: "", email: "", phone: "" });
+      this.setState({ name: "", email: "", phone: "", errors: {} });
+    }
+    return;
   };
 
   render() {
-    const { name, email, phone } = this.state;
+    const { name, email, phone, errors } = this.state;
 
     return (
       <Consumer>
@@ -46,6 +75,7 @@ class AddContactForm extends Component {
                     placeholder="Enter Name"
                     value={name}
                     onChange={this.handleChange}
+                    error={errors.name}
                   />
                   <FormGroup
                     name="email"
@@ -53,12 +83,14 @@ class AddContactForm extends Component {
                     placeholder="Enter Email"
                     value={email}
                     onChange={this.handleChange}
+                    error={errors.email}
                   />
                   <FormGroup
                     name="phone"
                     placeholder="Enter Phone"
                     value={phone}
                     onChange={this.handleChange}
+                    error={errors.phone}
                   />
                   <input
                     className="btn btn-light"
