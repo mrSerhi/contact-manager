@@ -11,8 +11,8 @@ class Contacts extends Component {
   render() {
     return (
       <Consumer>
-        {value => {
-          const { contacts, dispatch } = value;
+        {context => {
+          const { contacts, dispatch } = context;
           const items = contacts.map(contact => {
             const { id, ...data } = contact;
             return (

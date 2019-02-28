@@ -4,6 +4,7 @@ import "./App.css";
 //Components
 import NavBar from "../Header/NavBar";
 import Contacts from "../Contact/Contacts";
+import AddContactForm from "../Contact/AddContactForm";
 // Global state by Contex API
 import Provider from "../../context";
 
@@ -19,6 +20,7 @@ class App extends Component {
       <Provider>
         <div className="App">
           <NavBar />
+          <AddContactForm />
           <Contacts />
         </div>
       </Provider>
