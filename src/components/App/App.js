@@ -4,7 +4,7 @@ import "./App.css";
 //Components
 import NavBar from "../Header/NavBar";
 import Contacts from "../Contact/Contacts";
-import AddContactForm from "../Contact/AddContactForm";
+import AddContactForm from "../Contact/Form/AddContactForm";
 // Global state by Contex API
 import Provider from "../../context";
 
