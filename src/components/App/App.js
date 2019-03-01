@@ -7,6 +7,7 @@ import NavBar from "../Header/NavBar";
 import Contacts from "../Contact/Contacts";
 import AddContactForm from "../Contact/Form/AddContactForm";
 import About from "../Pages/About";
+import NotFound from "../Pages/NotFound";
 
 // Global state by Contex API
 import Provider from "../../context";
@@ -26,8 +27,9 @@ class App extends Component {
             <NavBar />
             <Switch>
               <Route exact path="/" component={Contacts} />
-              <Route path="/about" component={About} />
-              <Route path="/contact/add" component={AddContactForm} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/contact/add" component={AddContactForm} />
+              <Route component={NotFound} />>
             </Switch>
           </div>
         </Router>
