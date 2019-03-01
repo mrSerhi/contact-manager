@@ -33,7 +33,7 @@ class AddContactForm extends Component {
     if (phone === "") {
       this.setState({ errors: { phone: "phone is required" } });
       return;
-    } else if (phone.length < 5) {
+    } else if (phone.length <= 5) {
       this.setState({ errors: { phone: "a phone number should be > 5" } });
       return;
     }
@@ -50,6 +50,7 @@ class AddContactForm extends Component {
       dispatch({ type: "ADD_CONTACT", payload: contact });
 
       this.setState({ name: "", email: "", phone: "", errors: {} });
+      this.props.history.push("/"); // redirecting to the home page
     }
     return;
   };

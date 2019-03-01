@@ -43,6 +43,7 @@ class Provider extends Component {
         phone: "128-4-5543"
       }
     ],
+    brand: "Contact Manager",
     dispatch: action => this.setState(state => reducer(state, action))
   };
 
