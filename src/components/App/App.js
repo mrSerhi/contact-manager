@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 
 //Components
 import NavBar from "../Header/NavBar";
 import Contacts from "../Contact/Contacts";
-import AddContactForm from "../Contact/Form/AddContactForm";
+import AddContactForm from "../Form/AddContactForm";
 import EditContactForm from "../EditContact/EditContactForm";
 import About from "../Pages/About";
 import NotFound from "../Pages/NotFound";
