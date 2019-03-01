@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Consumer } from "../../../context";
-import uuid from "uuid";
+import axios from "axios";
 
 // Components
 import FormGroup from "../Form/FormGroup";
@@ -46,9 +46,23 @@ class AddContactForm extends Component {
     const valid = this.validationSubmit(this.state);
 
     if (valid) {
-      const contact = { id: uuid(), ...valid };
-      dispatch({ type: "ADD_CONTACT", payload: contact });
+      const contact = { ...valid };
+      axios
+        .post("https://jsonplaceholder.typicode.com/users", contact)
+        .then(res => dispatch({ type: "ADD_CONTACT", payload: res.data }))
+        .catch(error => {
+          if (error.response) {
+            console.log("data:", error.response.data);
+            console.log("status:", error.response.status);
+          } else if (error.request) {
+            console.log("error request:", error.request);
+          } else {
+            console.log("Error:", error.message);
+          }
+          console.log("error config:", error.config);
+        });
 
+      // reset inputs values
       this.setState({ name: "", email: "", phone: "", errors: {} });
       this.props.history.push("/"); // redirecting to the home page
     }
