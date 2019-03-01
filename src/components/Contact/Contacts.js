@@ -1,11 +1,25 @@
 import React, { Component } from "react";
 import { Consumer } from "../../context";
+import axios from "axios";
 // Components
 import Contact from "./Contact";
 
 class Contacts extends Component {
   handleDeleteContact = (id, dispatch) => {
-    dispatch({ type: "DELETE_CONTACT", payload: id });
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+      .then(res => dispatch({ type: "DELETE_CONTACT", payload: id }))
+      .catch(error => {
+        if (error.response) {
+          console.log("data:", error.response.data);
+          console.log("status:", error.response.status);
+        } else if (error.request) {
+          console.log("error request:", error.request);
+        } else {
+          console.log("Error:", error.message);
+        }
+        console.log("error config:", error.config);
+      });
   };
 
   render() {
