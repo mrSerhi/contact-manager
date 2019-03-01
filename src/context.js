@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 const Context = React.createContext();
 
@@ -23,29 +24,37 @@ const reducer = (state, action) => {
 
 class Provider extends Component {
   state = {
-    contacts: [
-      {
-        id: "flglkk33",
-        name: "Elizabet",
-        email: "elli@gmail.com",
-        phone: "555-34-123"
-      },
-      {
-        id: "fffdff3003",
-        name: "Dilan",
-        email: "dilan@gmail.com",
-        phone: "444-123-123"
-      },
-      {
-        id: "40404399bbb",
-        name: "Bill",
-        email: "bill@gmail.com",
-        phone: "128-4-5543"
-      }
-    ],
+    contacts: [],
     brand: "Contact Manager",
     dispatch: action => this.setState(state => reducer(state, action))
   };
+
+  componentDidMount() {
+    // fetch("https://jsonplaceholder.typicode.com/users")
+    //   .then(response => response.json())
+    //   .then(contacts => this.setState({ contacts }));
+    axios
+      .get("https://jsonplaceholder.typicode.com/users")
+      .then(response => this.setState({ contacts: response.data }))
+      .catch(error => {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
 
   render() {
     return (

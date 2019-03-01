@@ -29,7 +29,7 @@ class App extends Component {
               <Route exact path="/" component={Contacts} />
               <Route exact path="/about" component={About} />
               <Route exact path="/contact/add" component={AddContactForm} />
-              <Route component={NotFound} />>
+              <Route component={NotFound} />
             </Switch>
           </div>
         </Router>
