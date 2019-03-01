@@ -23,7 +23,14 @@ class Contacts extends Component {
               />
             );
           });
-          return <div className="container">{items}</div>;
+          return (
+            <div className="container">
+              <h1 className="display-3 text-center mb-2">
+                <span className="text-danger">Contact</span> List
+              </h1>
+              {items}
+            </div>
+          );
         }}
       </Consumer>
     );
