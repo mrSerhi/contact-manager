@@ -41,26 +41,29 @@ class AddContactForm extends Component {
     return { name, email, phone };
   };
 
-  handleSubmit = (e, dispatch) => {
+  handleSubmit = async (e, dispatch) => {
     e.preventDefault();
     const valid = this.validationSubmit(this.state);
 
     if (valid) {
       const contact = { ...valid };
-      axios
-        .post("https://jsonplaceholder.typicode.com/users", contact)
-        .then(res => dispatch({ type: "ADD_CONTACT", payload: res.data }))
-        .catch(error => {
-          if (error.response) {
-            console.log("data:", error.response.data);
-            console.log("status:", error.response.status);
-          } else if (error.request) {
-            console.log("error request:", error.request);
-          } else {
-            console.log("Error:", error.message);
-          }
-          console.log("error config:", error.config);
-        });
+
+      try {
+        const response = await axios.post(
+          "https://jsonplaceholder.typicode.com/users",
+          contact
+        );
+        dispatch({ type: "ADD_CONTACT", payload: response.data });
+      } catch (e) {
+        if (e.response) {
+          console.log("data:", e.response.data);
+          console.log("status:", e.response.status);
+        } else if (e.request) {
+          console.log("e request:", e.request);
+        } else {
+          console.log("e:", e.message);
+        }
+      }
 
       // reset inputs values
       this.setState({ name: "", email: "", phone: "", errors: {} });
