@@ -6,6 +6,7 @@ import "./App.css";
 import NavBar from "../Header/NavBar";
 import Contacts from "../Contact/Contacts";
 import AddContactForm from "../Contact/Form/AddContactForm";
+import EditContactForm from "../EditContact/EditContactForm";
 import About from "../Pages/About";
 import NotFound from "../Pages/NotFound";
 
@@ -29,6 +30,11 @@ class App extends Component {
               <Route exact path="/" component={Contacts} />
               <Route exact path="/about" component={About} />
               <Route exact path="/contact/add" component={AddContactForm} />
+              <Route
+                exact
+                path="/contact/edit/:id"
+                component={EditContactForm}
+              />
               <Route component={NotFound} />
             </Switch>
           </div>

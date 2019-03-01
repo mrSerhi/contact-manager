@@ -32,6 +32,7 @@ class Contacts extends Component {
             return (
               <Contact
                 key={id}
+                id={id}
                 contact={data}
                 onDelete={() => this.handleDeleteContact(id, dispatch)}
               />

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // Font-Awesome v5
@@ -7,9 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDown,
   faAngleUp,
-  faTimes
+  faTimes,
+  faPencilAlt
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faAngleDown, faAngleUp, faTimes);
+library.add(faAngleDown, faAngleUp, faTimes, faPencilAlt);
 
 class Contact extends Component {
   state = {
@@ -24,7 +26,7 @@ class Contact extends Component {
 
   render() {
     const { name, email, phone } = this.props.contact;
-    const { onDelete } = this.props;
+    const { id, onDelete } = this.props;
     const { active } = this.state;
     const display = active ? (
       <ul className="list-group">
@@ -45,9 +47,22 @@ class Contact extends Component {
               <FontAwesomeIcon icon={active ? faAngleUp : faAngleDown} />
             </button>
           </div>
-          <button onClick={onDelete} className="btn btn-link text-muted p-1">
-            <FontAwesomeIcon icon={faTimes} />
-          </button>
+
+          <div className="curd-buttons-block">
+            <Link
+              to={`/contact/edit/${id}`}
+              className="btn btn-link text-danger p-1"
+            >
+              <FontAwesomeIcon
+                icon={faPencilAlt}
+                style={{ fontSize: "1.2rem" }}
+              />
+            </Link>
+
+            <button onClick={onDelete} className="btn btn-link text-muted p-1">
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+          </div>
         </h5>
 
         {display}
